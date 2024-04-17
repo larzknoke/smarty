@@ -12,20 +12,22 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [uptime, setUptime] = useState(0);
+  const [socket, setSocket] = useState();
 
   async function connectSocket(connection) {
     await connection.startSocket();
     await connection.waitForFirstConnection();
-    let states = await connection.getStates(
-      "shelly.0.shellypro3em#0cb815fc3c84#1.uptime"
-    );
-    await connection.subscribeState(
-      "shelly.0.shellypro3em#0cb815fc3c84#1.uptime", //    "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
-      (id, state) => {
-        console.log("change", state);
-        setUptime(state.val);
-      }
-    );
+    // await connection.subscribeState(
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime", //    "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
+    //   (id, state) => {
+    //     console.log("change", state);
+    //     setUptime(state.val);
+    //   }
+    // );
+    setSocket(connection);
+    // let states = await connection.getStates(
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime"
+    // );
     // await connection.subscribeState(
     //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime",
     //   (id, state) => {
@@ -64,20 +66,21 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // connection.subscribeState(
-    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime",
-    //   (id, state) => {
-    //     console.log("change", state);
-    //     setUptime(state.val);
-    //   }
-    // );
-  }, []);
+    socket?.subscribeState(
+      "shelly.0.shellypro3em#0cb815fc3c84#1.uptime",
+      (id, state) => {
+        console.log("change", state);
+        setUptime(state.val);
+      }
+    );
+  }, [socket]);
 
   return (
     <>
       <Header />
       <main className="p-4">
         <p>{uptime}</p>
+        <p>{JSON.stringify(socket?.connected)}</p>
       </main>
     </>
   );
