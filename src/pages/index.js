@@ -6,33 +6,41 @@ import {
   ListenEventHandler,
   AdminConnection,
 } from "@iobroker/socket-client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [uptime, setUptime] = useState(0);
+
   async function connectSocket(connection) {
     await connection.startSocket();
     await connection.waitForFirstConnection();
-    // console.log(connection);
     let states = await connection.getStates(
-      "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime"
+      "shelly.0.shellypro3em#0cb815fc3c84#1.uptime"
     );
-    // console.log("states", states);
-
     await connection.subscribeState(
-      "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
-      true,
-      (data) => console.log("subscribe", data)
+      "shelly.0.shellypro3em#0cb815fc3c84#1.uptime", //    "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
+      (id, state) => {
+        console.log("change", state);
+        setUptime(state.val);
+      }
     );
-    let state = await connection.getState(
-      "shelly.0.SHEM-3#E8DB84D68ECE#1.hostname"
-    );
-    console.log("getState", state);
+    // await connection.subscribeState(
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime",
+    //   (id, state) => {
+    //     console.log("change", state);
+    //     setUptime(state.val);
+    //   }
+    // );
+    // let state = await connection.getState(
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.hostname"
+    // );
+    // console.log("getState", state);
     // let hosts = await connection.getHosts();
     // let users = await connection.getUsers();
     // let object = await connection.getObject(
-    //   "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime"
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime"
     // );
     // console.log("hosts", hosts);
     // console.log("users", users);
@@ -40,33 +48,36 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const adminConnection = new Connection({
+    const socketConnection = new Connection({
       protocol: "ws",
-      host: "10.10.10.3",
-      port: 8082,
+      // host: "10.10.10.3",
+      // port: 8082,
+      host: "colorserver2019.colorplus.de",
+      port: 8084,
       admin5only: false,
-      autoSubscribes: [
-        "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
-        "shelly.0.SHEM-3#E8DB84D68ECE#1.hostname",
-      ],
-      doNotLoadAllObjects: false,
-      autoSubscribeLog: true,
-      // optional: other options
+      // autoSubscribes: [],
+      // doNotLoadAllObjects: false,
+      // autoSubscribeLog: true,
     });
-    // console.log(adminConnection);
 
-    connectSocket(adminConnection);
-    // console.log(adminConnection);
-    // adminConnection.waitForFirstConnection();
-    // and use it
+    connectSocket(socketConnection);
+  }, []);
+
+  useEffect(() => {
+    // connection.subscribeState(
+    //   "shelly.0.shellypro3em#0cb815fc3c84#1.uptime",
+    //   (id, state) => {
+    //     console.log("change", state);
+    //     setUptime(state.val);
+    //   }
+    // );
   }, []);
 
   return (
     <>
       <Header />
-      <main>
-        FOO
-        <p>bar</p>
+      <main className="p-4">
+        <p>{uptime}</p>
       </main>
     </>
   );
