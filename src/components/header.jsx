@@ -5,20 +5,23 @@ import {
 } from "@phosphor-icons/react";
 import Weather from "./Weather";
 import Clock from "./Clock";
+import { Flex, HStack, Spacer, VStack } from "@chakra-ui/react";
 
 function Header() {
   return (
-    <div className="p-6 flex gap-4 flex-col">
-      <div className="flex justify-between gap-5">
-        <ListIcon size={32} className="mr-auto" />
+    <VStack p={6} gap={6}>
+      <Flex gap={5} w={"full"}>
+        <ListIcon size={32} />
+        <Spacer />
         <WifiHighIcon size={32} />
         <GearIcon size={32} />
-      </div>
-      <div className="flex justify-between gap-5">
+      </Flex>
+      <Flex w={"full"}>
         <Weather />
+        <Spacer />
         <Clock />
-      </div>
-    </div>
+      </Flex>
+    </VStack>
   );
 }
 

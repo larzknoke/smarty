@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import Tasks from "@/components/Tasks";
 import Login from "@/components/Login";
+import MainContent from "@/components/MainContent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,10 +55,10 @@ export default function Home() {
   useEffect(() => {
     const socketConnection = new Connection({
       protocol: "ws",
-      host: "10.10.10.3",
-      port: 8082,
-      // host: "colorserver2019.colorplus.de",
-      // port: 8084,
+      // host: "10.10.10.3",
+      // port: 8082,
+      host: "colorserver2019.colorplus.de",
+      port: 8084,
       admin5only: false,
       // autoSubscribes: [],
       // doNotLoadAllObjects: false,
@@ -80,14 +81,15 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="p-4">
-        {/* <p>{uptime}</p>
+      <MainContent />
+      {/* <main className="p-4">
+        <p>{uptime}</p>
         <p>{JSON.stringify(socket?.connected)}</p>
         <hr my={6} />
         <Tasks />
         <hr my={6} />
-        <Login /> */}
-      </main>
+        <Login />
+      </main> */}
     </>
   );
 }
