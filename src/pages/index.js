@@ -55,10 +55,10 @@ export default function Home() {
   useEffect(() => {
     const socketConnection = new Connection({
       protocol: "ws",
-      // host: "10.10.10.3",
-      // port: 8082,
-      host: "colorserver2019.colorplus.de",
-      port: 8084,
+      host: process.env.NEXT_PUBLIC_SOCKET_URL,
+      port: process.env.NEXT_PUBLIC_SOCKET_PORT,
+      // host: "colorserver2019.colorplus.de",
+      // port: 8084,
       admin5only: false,
       // autoSubscribes: [],
       // doNotLoadAllObjects: false,

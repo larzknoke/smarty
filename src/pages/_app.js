@@ -3,7 +3,6 @@ import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { extendTheme, theme as baseTheme } from "@chakra-ui/react";
-import { mode } from "@chakra-ui/theme-tools";
 
 const theme = extendTheme({
   styles: {

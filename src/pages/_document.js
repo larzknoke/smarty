@@ -4,8 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <script src="http://colorserver2019.colorplus.de:49153/socket.io/socket.io.js" />
-        {/* <script src="http://10.10.10.3:8082/socket.io/socket.io.js" /> */}
+        <script src={process.env.NEXT_PUBLIC_SOKCET_JS_URL} />
       </Head>
       <body>
         <Main />

@@ -5,7 +5,7 @@ import {
 } from "@phosphor-icons/react";
 import Weather from "./Weather";
 import Clock from "./Clock";
-import { Flex, HStack, Spacer, VStack } from "@chakra-ui/react";
+import { Flex, Spacer, VStack } from "@chakra-ui/react";
 
 function Header() {
   return (
