@@ -1,13 +1,17 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { HouseLine } from "@phosphor-icons/react";
+import {
+  HouseLine,
+  ListChecks,
+  ChargingStation,
+  WashingMachine,
+} from "@phosphor-icons/react";
 
 let tabs = [
   { id: "home", label: <HouseLine size={32} /> },
-  { id: "ny", label: "N.Y." },
-  { id: "business", label: "Business" },
-  { id: "arts", label: "Arts" },
-  { id: "science", label: "Science" },
+  { id: "todos", label: <ListChecks size={32} /> },
+  { id: "pv", label: <ChargingStation size={32} /> },
+  { id: "housekeeping", label: <WashingMachine size={32} /> },
 ];
 
 export default function ContentTabs() {
@@ -20,7 +24,7 @@ export default function ContentTabs() {
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
           className={`${
-            activeTab === tab.id ? "" : "hover:text-slate-500"
+            activeTab === tab.id ? "" : "hover:text-slate-600"
           } relative rounded-full px-3 py-1.5 text-sm font-medium text-slate outline-slate-800 transition focus-visible:outline-2`}
           style={{
             WebkitTapHighlightColor: "transparent",
