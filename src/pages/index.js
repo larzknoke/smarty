@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import Header from "@/components/header";
+import Header from "@/components/Header";
 import {
   Connection,
   EmitEventHandler,
@@ -8,7 +8,7 @@ import {
 } from "@iobroker/socket-client";
 import { useEffect, useState } from "react";
 import Tasks from "@/components/Tasks";
-import Login from "@/components/login";
+import Login from "@/components/Login";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,12 +81,12 @@ export default function Home() {
     <>
       <Header />
       <main className="p-4">
-        <p>{uptime}</p>
+        {/* <p>{uptime}</p>
         <p>{JSON.stringify(socket?.connected)}</p>
         <hr my={6} />
         <Tasks />
         <hr my={6} />
-        <Login />
+        <Login /> */}
       </main>
     </>
   );
