@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import Tasks from "@/components/Tasks";
 import Login from "@/components/Login";
-import MainContent from "@/components/MainContent";
+import MainContent from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -80,8 +80,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <MainContent />
+      <p>Index</p>
       {/* <main className="p-4">
         <p>{uptime}</p>
         <p>{JSON.stringify(socket?.connected)}</p>

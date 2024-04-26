@@ -10,8 +10,9 @@ import {
   WashingMachine,
   SwimmingPool,
 } from "@phosphor-icons/react";
+import Header from "./Header";
 
-function MainContent() {
+function Layout({ children }) {
   let tabs = [
     { id: "home", label: <HouseLine size={80} /> },
     { id: "todos", label: <ListChecks size={80} /> },
@@ -28,10 +29,12 @@ function MainContent() {
 
   return (
     <VStack p={6}>
+      <Header />
+      {children}
       <ContentArea activeTab={activeTab} />
       <ContentTabs tabs={tabs} activeTab={activeTab} handleTab={handleTab} />
     </VStack>
   );
 }
 
-export default MainContent;
+export default Layout;

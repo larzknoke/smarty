@@ -1,8 +1,10 @@
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
-
-import { extendTheme, theme as baseTheme } from "@chakra-ui/react";
+import { AnimatePresence } from "framer-motion";
+import { extendTheme } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import Layout from "@/components/Layout";
 
 const theme = extendTheme({
   styles: {
@@ -35,10 +37,15 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  const router = useRouter();
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <AnimatePresence mode="wait" initial={false}>
+          <Layout>
+            <Component {...pageProps} key={router.asPath} />
+          </Layout>
+        </AnimatePresence>
       </ChakraProvider>
     </SessionProvider>
   );
