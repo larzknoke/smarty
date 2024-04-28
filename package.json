@@ -17,6 +17,7 @@
     "@phosphor-icons/react": "^2.1.5",
     "framer-motion": "^11.1.7",
     "googleapis": "^134.0.0",
+    "jsmpeg-player": "^3.0.3",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18",

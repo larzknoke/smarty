@@ -1,13 +1,20 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function ContentTabs({ tabs, activeTab, handleTab }) {
+  const router = useRouter();
+  function handleClick(id) {
+    handleTab(id);
+    router.push(`/${id}`);
+  }
+
   return (
     <div className="flex space-x-16 fixed bottom-10">
       {tabs.map((tab) => (
         <button
           key={tab.id}
-          onClick={() => handleTab(tab.id)}
+          onClick={() => handleClick(tab.id)}
           className={`${
             activeTab === tab.id ? "" : "hover:text-slate-600"
           } relative rounded-full px-4 py-2 text-sm font-medium text-slate outline-slate-800 transition focus-visible:outline-2`}

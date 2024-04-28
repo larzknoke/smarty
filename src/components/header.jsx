@@ -9,7 +9,7 @@ import { Flex, Spacer, VStack } from "@chakra-ui/react";
 
 function Header() {
   return (
-    <VStack p={6} gap={6} w={"full"}>
+    <VStack gap={6} w={"full"}>
       <Flex gap={5} w={"full"}>
         <ListIcon size={32} />
         <Spacer />

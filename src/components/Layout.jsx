@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { VStack } from "@chakra-ui/react";
 import React from "react";
@@ -28,10 +29,9 @@ function Layout({ children }) {
   }
 
   return (
-    <VStack p={6}>
+    <VStack p={8} overflow={"hidden"}>
       <Header />
       {children}
-      <ContentArea activeTab={activeTab} />
       <ContentTabs tabs={tabs} activeTab={activeTab} handleTab={handleTab} />
     </VStack>
   );

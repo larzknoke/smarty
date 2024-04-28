@@ -5,8 +5,19 @@ import { AnimatePresence } from "framer-motion";
 import { extendTheme } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
+import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
+
+const xl = defineStyle({
+  border: "10px solid",
+  borderRadius: "lg",
+});
+
+export const dividerTheme = defineStyleConfig({
+  sizes: { xl },
+});
 
 const theme = extendTheme({
+  components: { Divider: dividerTheme },
   styles: {
     global: {
       body: {
@@ -41,11 +52,11 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        <AnimatePresence mode="wait" initial={false}>
-          <Layout>
+        <Layout>
+          <AnimatePresence mode="wait" initial={false}>
             <Component {...pageProps} key={router.asPath} />
-          </Layout>
-        </AnimatePresence>
+          </AnimatePresence>
+        </Layout>
       </ChakraProvider>
     </SessionProvider>
   );
