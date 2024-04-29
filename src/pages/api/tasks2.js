@@ -43,38 +43,40 @@ export default async (req, res) => {
       session.user.accessToken = newAccessToken;
     }
 
-    const response = await fetch("https://keep.googleapis.com/v1/notes", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${accessToken}`, // notice the Bearer before your token
-      },
-    });
+    console.log("oauth2Client", oauth2Client);
 
-    const notes = await oauth2Client.request({
-      url: "https://keep.googleapis.com/v1/notes",
-    });
-    console.log("notes", notes);
-
-    // const service = google.tasks({
-    //   version: "v1",
-    //   auth: oauth2Client,
+    // const response = await fetch("https://keep.googleapis.com/v1/notes", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //     Authorization: `Bearer ${accessToken}`, // notice the Bearer before your token
+    //   },
     // });
 
-    // const tasks = await service.tasklists.list({
-    //   maxResults: 10,
+    // const notes = await oauth2Client.request({
+    //   url: "https://keep.googleapis.com/v1/notes",
     // });
-    // const taskLists = tasks.data.items;
-    // if (taskLists && taskLists.length) {
-    //   console.log("Task lists:");
-    //   taskLists.forEach((taskList) => {
-    //     console.log(`${taskList.title} (${taskList.id})`, taskList);
-    //   });
-    // } else {
-    //   console.log("No task lists found.");
-    // }
+    // console.log("notes", notes);
 
-    res.status(200).json({ taskLists });
+    const service = google.tasks({
+      version: "v1",
+      auth: oauth2Client,
+    });
+
+    const tasks = await service.tasklists.list({
+      maxResults: 10,
+    });
+    const taskLists = tasks.data.items;
+    if (taskLists && taskLists.length) {
+      console.log("Task lists:");
+      taskLists.forEach((taskList) => {
+        console.log(`${taskList.title} (${taskList.id})`, taskList);
+      });
+    } else {
+      console.log("No task lists found.");
+    }
+
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error("An error occurred: ", error);
     return res.status(500).json({ error: "Internal Error" });
