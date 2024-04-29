@@ -3,20 +3,21 @@
 import { google } from "googleapis";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
-import { authOptions } from "./auth/[...nextAuth]";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async (req, res) => {
   try {
     const session = await getServerSession(req, res, authOptions);
     const token = await getToken({ req });
-    console.log(token);
+    console.log("session", session);
+    console.log("token", token);
 
     if (!session) {
       return res.status(401).json({ error: "No Session Active" });
     }
 
-    const accessToken = token?.accessToken;
-    const refreshToken = token?.refreshToken;
+    const accessToken = session?.accessToken;
+    const refreshToken = session?.refreshToken;
 
     if (!accessToken) {
       return res.status(401).json({ error: "No Access Token" });
