@@ -14,7 +14,7 @@ import { SolarPanel } from "@phosphor-icons/react";
 function Pool() {
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"85%"} gap={40} mt={40}>
+      <Flex direction={"column"} w={"85%"} gap={32} mt={40}>
         <HStack justifyContent={"space-between"}>
           <VStack>
             <Heading size={"4xl"}>7.5</Heading>
@@ -26,7 +26,17 @@ function Pool() {
           </VStack>
           <VStack>
             <Heading size={"4xl"}>28°</Heading>
-            <Heading size={"xl"}>Temperatur</Heading>
+            <Heading size={"xl"}>Temp. Wasser</Heading>
+          </VStack>
+        </HStack>
+        <HStack justifyContent={"space-around"}>
+          <VStack>
+            <Heading size={"3xl"}>22°</Heading>
+            <Heading size={"xl"}>Temp. Solar</Heading>
+          </VStack>
+          <VStack>
+            <Heading size={"3xl"}>20</Heading>
+            <Heading size={"xl"}>Temp. Kessel</Heading>
           </VStack>
         </HStack>
         <VStack alignItems={"flex-start"}>
@@ -104,7 +114,7 @@ function Pool() {
             </VStack>
           </HStack>
         </VStack>
-        <PoolStream />
+        {/* <PoolStream /> */}
       </Flex>
     </TransitionWrapper>
   );
