@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { VStack } from "@chakra-ui/react";
 import React from "react";

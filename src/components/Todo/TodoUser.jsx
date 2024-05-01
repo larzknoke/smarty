@@ -2,7 +2,7 @@ import { VStack, Image, Button } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
 import TodoItem from "@/components/Todo/TodoItem";
 
-function TodoUser() {
+function TodoUser({ user }) {
   return (
     <VStack gap={6}>
       <Image
