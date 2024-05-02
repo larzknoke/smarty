@@ -171,6 +171,8 @@ function Todos({ users }) {
                       <option value="blue">Blau</option>
                       <option value="red">Rot</option>
                       <option value="green">Grün</option>
+                      <option value="orange">Orange</option>
+                      <option value="yellow">Gelb</option>
                     </Select>
                     <FormErrorMessage>
                       {errors.color && errors.color.message}

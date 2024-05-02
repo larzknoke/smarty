@@ -73,15 +73,12 @@ function Header() {
               <ListItem>
                 <Link href={"/user"}>Benutzer</Link>
               </ListItem>
+              <Divider />
+              <ListItem>
+                <Link href={"/todos"}>Todos</Link>
+              </ListItem>
             </List>
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </VStack>

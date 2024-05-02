@@ -1,9 +1,10 @@
 import { dateFormatter } from "@/lib/utils";
 import { Box, Badge } from "@chakra-ui/react";
 
-function TodoItem({ todo, color }) {
+function TodoItem({ todo, color, onOpenEditTodo }) {
   return (
     <Box
+      onClick={onOpenEditTodo}
       //   boxShadow={"lg"}
       width={"100%"}
       borderWidth="2px"
