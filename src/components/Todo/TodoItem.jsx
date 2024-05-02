@@ -1,10 +1,11 @@
+import { dateFormatter } from "@/lib/utils";
 import { Box, Badge } from "@chakra-ui/react";
 
-function TodoItem() {
+function TodoItem({ todo }) {
   return (
     <Box
       //   boxShadow={"lg"}
-      maxW={"250px"}
+      width={"100%"}
       borderWidth="2px"
       borderRadius="md"
       overflow="hidden"
@@ -16,7 +17,7 @@ function TodoItem() {
     >
       <Box display="flex" alignItems="baseline">
         <Badge borderRadius="full" px="2" colorScheme="orange">
-          30.04.24
+          {dateFormatter(todo.createdAt)}
         </Badge>
       </Box>
 
@@ -28,10 +29,10 @@ function TodoItem() {
         noOfLines={2}
         fontSize={"2xl"}
       >
-        Küche aufräumen und wischen
+        {todo.title}
       </Box>
 
-      <Box>Lorem ipsum</Box>
+      <Box>{todo.content}</Box>
     </Box>
   );
 }

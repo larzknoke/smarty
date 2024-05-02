@@ -2,14 +2,14 @@ import { VStack, Image, Button } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
 import TodoItem from "@/components/Todo/TodoItem";
 
-function TodoUser({ user }) {
+function TodoUser({ user, onOpen }) {
   return (
-    <VStack gap={6}>
+    <VStack gap={6} maxW={"250px"}>
       <Image
         borderRadius="full"
         boxSize="200px"
         src="https://bit.ly/dan-abramov"
-        alt="Dan Abramov"
+        alt={user.name}
       />
       <Button
         size={"lg"}
@@ -17,12 +17,14 @@ function TodoUser({ user }) {
         colorScheme="blackAlpha"
         variant={"outline"}
         w={"100%"}
+        onClick={onOpen}
       >
         Neu
       </Button>
-      <VStack gap={6}>
-        <TodoItem />
-        <TodoItem />
+      <VStack gap={5} w={"100%"}>
+        {user.todos.map((todo) => {
+          return <TodoItem key={todo.id} todo={todo} />;
+        })}
       </VStack>
     </VStack>
   );
