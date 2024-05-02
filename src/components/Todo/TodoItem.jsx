@@ -1,7 +1,7 @@
 import { dateFormatter } from "@/lib/utils";
 import { Box, Badge } from "@chakra-ui/react";
 
-function TodoItem({ todo }) {
+function TodoItem({ todo, color }) {
   return (
     <Box
       //   boxShadow={"lg"}
@@ -11,12 +11,12 @@ function TodoItem({ todo }) {
       overflow="hidden"
       borderColor={"blackAlpha.300"}
       borderLeftWidth={"4px"}
-      borderLeftColor={"blue.500"}
+      borderLeftColor={`${color}.500`}
       px={4}
       py={3}
     >
       <Box display="flex" alignItems="baseline">
-        <Badge borderRadius="full" px="2" colorScheme="orange">
+        <Badge borderRadius="full" px="2">
           {dateFormatter(todo.createdAt)}
         </Badge>
       </Box>

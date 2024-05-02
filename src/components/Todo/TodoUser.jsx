@@ -23,7 +23,7 @@ function TodoUser({ user, onOpen }) {
       </Button>
       <VStack gap={5} w={"100%"}>
         {user.todos.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} />;
+          return <TodoItem key={todo.id} todo={todo} color={user.color} />;
         })}
       </VStack>
     </VStack>
