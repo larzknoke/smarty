@@ -25,11 +25,14 @@ import { Select } from "chakra-react-select";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-function TodoNewModal({ isOpen, onClose }) {
+function TodoNewModal({ isOpen, onClose, clickedUser }) {
   const toast = useToast();
   const router = useRouter();
   const [userSelect, setUserSelect] = useState([]);
-  const [userSelected, setUserSelected] = useState(null);
+  const [userSelected, setUserSelected] = useState(clickedUser);
+
+  console.log("clickedUser", clickedUser);
+  console.log("userSelected", userSelected);
 
   async function userForSelect() {
     const res = await fetch("/api/user", {
@@ -49,6 +52,10 @@ function TodoNewModal({ isOpen, onClose }) {
   useEffect(() => {
     if (isOpen) userForSelect();
   }, [isOpen]);
+
+  useEffect(() => {
+    setUserSelect(clickedUser);
+  }, []);
 
   const {
     register,

@@ -11,6 +11,7 @@ import {
 import prisma from "@/lib/prisma";
 import TodoNewModal from "@/components/Todo/TodoNewModal";
 import TodoEditModal from "@/components/Todo/TodoEditModal";
+import { useState } from "react";
 
 function Todos({ users }) {
   const {
@@ -23,6 +24,17 @@ function Todos({ users }) {
     onOpen: onOpenEditTodo,
     onClose: onCloseEditTodo,
   } = useDisclosure();
+
+  const [clickedTodo, setClickedTodo] = useState();
+  const [clickedUser, setClickedUser] = useState();
+
+  function handleClickedToto(id) {
+    setClickedTodo(id);
+  }
+
+  function handleClickedUser(id) {
+    setClickedUser(id);
+  }
 
   return (
     <TransitionWrapper>
@@ -40,13 +52,23 @@ function Todos({ users }) {
                   user={user}
                   onOpen={onOpenNewTodo}
                   onOpenEditTodo={onOpenEditTodo}
+                  handleClickedToto={handleClickedToto}
+                  handleClickedUser={handleClickedUser}
                 />
               );
             })}
         </HStack>
       </VStack>
-      <TodoNewModal onClose={onCloseNewTodo} isOpen={isOpenNewTodo} />
-      <TodoEditModal onClose={onCloseEditTodo} isOpen={isOpenEditTodo} />
+      <TodoNewModal
+        onClose={onCloseNewTodo}
+        isOpen={isOpenNewTodo}
+        clickedUser={clickedUser}
+      />
+      <TodoEditModal
+        onClose={onCloseEditTodo}
+        isOpen={isOpenEditTodo}
+        clickedTodo={clickedTodo}
+      />
     </TransitionWrapper>
   );
 }

@@ -1,10 +1,13 @@
 import { dateFormatter } from "@/lib/utils";
-import { Box, Badge } from "@chakra-ui/react";
+import { Box, Badge, Text } from "@chakra-ui/react";
 
-function TodoItem({ todo, color, onOpenEditTodo }) {
+function TodoItem({ todo, color, onOpenEditTodo, handleClickedToto }) {
   return (
     <Box
-      onClick={onOpenEditTodo}
+      onClick={() => {
+        handleClickedToto(todo.id);
+        onOpenEditTodo();
+      }}
       //   boxShadow={"lg"}
       width={"100%"}
       borderWidth="2px"
@@ -30,7 +33,7 @@ function TodoItem({ todo, color, onOpenEditTodo }) {
         noOfLines={2}
         fontSize={"2xl"}
       >
-        {todo.title}
+        {todo.completed ? <Text as="del">{todo.title}</Text> : todo.title}
       </Box>
 
       <Box>{todo.content}</Box>
