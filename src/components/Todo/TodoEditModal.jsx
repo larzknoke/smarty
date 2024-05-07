@@ -19,7 +19,6 @@ function TodoEditModal({ isOpen, onClose, clickedTodo }) {
 
   async function completeTodo(id) {
     try {
-      console.log("id: ", id);
       const res = await fetch("/api/todo/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,8 +78,10 @@ function TodoEditModal({ isOpen, onClose, clickedTodo }) {
             </Button>
             <ButtonGroup variant="outline" spacing="4" width={"100%"}>
               <Button onClick={onClose}>Abbrechen</Button>
-              <Button>Verschieben</Button>
-              <Button colorScheme="green">Bearbeiten</Button>
+              <Button isDisabled={true}>Verschieben</Button>
+              <Button colorScheme="green" isDisabled={true}>
+                Bearbeiten
+              </Button>
             </ButtonGroup>
           </VStack>
         </ModalBody>

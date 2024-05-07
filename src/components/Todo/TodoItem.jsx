@@ -4,6 +4,7 @@ import { Box, Badge, Text } from "@chakra-ui/react";
 function TodoItem({ todo, color, onOpenEditTodo, handleClickedToto }) {
   return (
     <Box
+      opacity={todo.completed ? 0.5 : 1}
       onClick={() => {
         handleClickedToto(todo.id);
         onOpenEditTodo();

@@ -29,10 +29,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
   const toast = useToast();
   const router = useRouter();
   const [userSelect, setUserSelect] = useState([]);
-  const [userSelected, setUserSelected] = useState(clickedUser);
-
-  console.log("clickedUser", clickedUser);
-  console.log("userSelected", userSelected);
+  const [userSelected, setUserSelected] = useState();
 
   async function userForSelect() {
     const res = await fetch("/api/user", {
@@ -54,8 +51,8 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
   }, [isOpen]);
 
   useEffect(() => {
-    setUserSelect(clickedUser);
-  }, []);
+    setUserSelected(clickedUser);
+  }, [clickedUser]);
 
   const {
     register,
@@ -106,7 +103,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
     }
   }
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Neues Todo</ModalHeader>
@@ -132,7 +129,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
                   </FormErrorMessage>
                 </FormControl>
               </GridItem>
-              <GridItem colSpan={3}>
+              {/* <GridItem colSpan={3}>
                 <FormControl isInvalid={errors.user}>
                   <FormLabel>Benutzer</FormLabel>
                   <Select
@@ -153,7 +150,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
                     {errors.user && errors.user.message}
                   </FormErrorMessage>
                 </FormControl>
-              </GridItem>
+              </GridItem> */}
             </SimpleGrid>
           </form>
         </ModalBody>
