@@ -36,7 +36,9 @@ export const authOptions = {
       // authorizationUrl: process.env.GOOGLE_AUTH_URI,
       authorization: {
         params: {
-          scope: "openid email profile https://www.googleapis.com/auth/tasks",
+          // scope: "openid email profile https://www.googleapis.com/auth/tasks",
+          scope:
+            "openid email profile https://www.googleapis.com/auth/calendar",
         },
       },
     }),
