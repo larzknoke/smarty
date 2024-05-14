@@ -24,7 +24,10 @@ export default function Home() {
   useEffect(() => {
     if (socket?.isConnected) {
       socket?.subscribeState(
-        "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
+        [
+          "shelly.0.SHEM-3#E8DB84D68ECE#1.uptime",
+          "0_userdata.0.Pool.BayrolTemp",
+        ],
         (id, state) => {
           console.log("change", state);
           setUptime(state.val);
