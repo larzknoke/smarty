@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { SolarPanel } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
+import Calendar from "@/components/Calendar/Calendar";
 function Home() {
   const states = [
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR",
@@ -47,8 +48,8 @@ function Home() {
 
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"85%"} gap={20} mt={40} px={8}>
-        <Text>VALUES: {JSON.stringify(values)}</Text>
+      <Flex direction={"column"} w={"95%"} gap={20} mt={40} px={8}>
+        {/* <Text>VALUES: {JSON.stringify(values)}</Text> */}
         <HStack justifyContent={"space-between"}>
           <VStack>
             <Heading size={"4xl"}>
@@ -79,6 +80,7 @@ function Home() {
             <Heading size={"xl"}>Leistung</Heading>
           </VStack>
         </HStack>
+        <Calendar />
       </Flex>
     </TransitionWrapper>
   );
