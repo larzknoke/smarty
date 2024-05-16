@@ -12,11 +12,16 @@ import {
 import { SolarPanel } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 import Calendar from "@/components/Calendar/Calendar";
+import { EMValue, makeNegativeNumberZero } from "@/lib/utils";
 function Home() {
   const states = [
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR",
     "0_userdata.0.Pool.BayrolTemp",
-    "shelly.0.SHSW-1#E8DB84D48F94#1.uptime",
+    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1",
+    "modbus.0.inputRegisters.30775_Leistung",
+    "shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower",
+    "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
+    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1",
   ];
 
   const [socket, setSocket] = useState();
@@ -53,30 +58,58 @@ function Home() {
         <HStack justifyContent={"space-between"}>
           <VStack>
             <Heading size={"4xl"}>
-              {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR"]}
+              {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR"]}°
+              <Text display={"inline"} fontSize={28}>
+                {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR"]}°
+              </Text>
             </Heading>
             <Heading size={"xl"}>Wasser</Heading>
           </VStack>
           <VStack>
             <Heading size={"4xl"}>
-              {values["0_userdata.0.Pool.BayrolTemp"]}
+              {values["0_userdata.0.Pool.BayrolTemp"]}°
             </Heading>
             <Heading size={"xl"}>Pool</Heading>
           </VStack>
           <VStack>
-            <Heading size={"4xl"}>22°</Heading>
+            <Heading size={"4xl"}>
+              {values["stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1"]}°
+              <Text display={"inline"} fontSize={28}>
+                {
+                  values[
+                    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1"
+                  ]
+                }
+                °
+              </Text>
+            </Heading>
             <Heading size={"xl"}>Heizung</Heading>
           </VStack>
         </HStack>
         <HStack justifyContent={"space-around"}>
           <VStack>
-            <Heading size={"3xl"} color={"green.500"}>
-              +1.2 kWh
+            <Heading
+              size={"3xl"}
+              color={
+                values["shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower"] < 0
+                  ? "green.500"
+                  : "red.500"
+              }
+            >
+              {EMValue(
+                values["shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower"]
+              )}{" "}
+              kWh
             </Heading>
             <Heading size={"xl"}>3EM</Heading>
           </VStack>
           <VStack>
-            <Heading size={"3xl"}>6.5 kW</Heading>
+            <Heading size={"3xl"}>
+              {makeNegativeNumberZero(
+                values["modbus.0.inputRegisters.30775_Leistung"]
+              )}{" "}
+              kW
+            </Heading>
             <Heading size={"xl"}>Leistung</Heading>
           </VStack>
         </HStack>

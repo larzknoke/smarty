@@ -1,6 +1,14 @@
 import { Icon } from "@chakra-ui/react";
 import { CheckCircle, Prohibit } from "@phosphor-icons/react";
 
+export function EMValue(value) {
+  return ((value * -1) / 1000).toFixed(2);
+}
+
+export function makeNegativeNumberZero(num) {
+  return Math.max(0, num) || 0;
+}
+
 export function isObjEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
