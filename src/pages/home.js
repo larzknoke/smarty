@@ -37,7 +37,7 @@ function Home() {
         // console.log("id", id);
         setValues((prevState) => ({
           ...prevState,
-          [id]: state.val,
+          [id]: state?.val || 0,
         }));
       });
     }
