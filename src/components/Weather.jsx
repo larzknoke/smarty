@@ -1,4 +1,10 @@
-import { CloudSun } from "@phosphor-icons/react";
+import {
+  CloudSun,
+  Sun,
+  Cloud,
+  CloudRain,
+  Umbrella,
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 function Weather() {
@@ -17,10 +23,18 @@ function Weather() {
     console.log("weather data", weatherData);
   }, []);
 
+  function getWeatherIcon(codes) {
+    if ([0, 1, 2, 3].filter((el) => codes?.includes(el)).length > 0) {
+      return <CloudSun size={32} />;
+    } else {
+      return <Sun size={32} />;
+    }
+  }
+
   return (
     <div>
       <div className="rounded-md py-2 p-3 shadow-md flex gap-2 bg-orange-100">
-        <CloudSun size={32} />
+        {getWeatherIcon(weatherData.daily?.weather_code)}
         <span className="text-3xl font-semibold">
           {weatherData.current?.temperature_2m}°
         </span>
