@@ -43,7 +43,7 @@ export default async (req, res) => {
     const result = calendar.events.list({
       calendarId: "15o5sfjde220dar98njal5m3u4@group.calendar.google.com",
       timeMin: new Date().toISOString(),
-      maxResults: 10,
+      maxResults: 50,
       singleEvents: true,
       orderBy: "startTime",
     });

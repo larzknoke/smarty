@@ -43,7 +43,7 @@ body {
 }
 
 .fc-event-title {
-  text-wrap: balance;
+  text-wrap: pretty;
   text-overflow: ellipsis;
 }
 
@@ -53,4 +53,9 @@ body {
 
 .fc-daygrid-dot-event {
   flex-wrap: wrap;
+  padding: 2px;
+}
+
+.fc-day:nth-child(2n) {
+  @apply bg-orange-50;
 }

@@ -77,7 +77,7 @@ function Home() {
             <Heading size={"xl"}>Heizung</Heading>
           </VStack>
         </HStack>
-        <HStack justifyContent={"space-around"} mb={6}>
+        <HStack justifyContent={"space-around"} mb={16}>
           <VStack>
             <Heading
               size={"3xl"}

@@ -27,6 +27,8 @@ export default function Calendar() {
     <>
       {/* <p>{JSON.stringify(events)}</p> */}
       <FullCalendar
+        height={"30em"}
+        // aspectRatio={1.5}
         plugins={[dayGridPlugin]}
         initialView="dayGridWeek"
         locale={deLocale}
