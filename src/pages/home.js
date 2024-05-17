@@ -1,15 +1,6 @@
 import { socketConnection, connectSocket } from "@/lib/socketConnection";
 import TransitionWrapper from "@/components/TransitionWrapper";
-import {
-  Text,
-  Flex,
-  Switch,
-  HStack,
-  Heading,
-  VStack,
-  Divider,
-} from "@chakra-ui/react";
-import { SolarPanel } from "@phosphor-icons/react";
+import { Text, Flex, HStack, Heading, VStack, Image } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import Calendar from "@/components/Calendar/Calendar";
 import { EMValue, makeNegativeNumberZero } from "@/lib/utils";
@@ -53,7 +44,7 @@ function Home() {
 
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"95%"} gap={20} mt={40} px={8}>
+      <Flex direction={"column"} w={"95%"} gap={16} mt={40} px={8}>
         {/* <Text>VALUES: {JSON.stringify(values)}</Text> */}
         <HStack justifyContent={"space-between"}>
           <VStack>
@@ -86,7 +77,7 @@ function Home() {
             <Heading size={"xl"}>Heizung</Heading>
           </VStack>
         </HStack>
-        <HStack justifyContent={"space-around"}>
+        <HStack justifyContent={"space-around"} mb={6}>
           <VStack>
             <Heading
               size={"3xl"}
@@ -114,6 +105,27 @@ function Home() {
           </VStack>
         </HStack>
         <Calendar />
+        <HStack gap={10} alignSelf={"center"}>
+          <Image
+            borderRadius="full"
+            boxSize="150px"
+            src={`/avatars/alle2.png`}
+            borderColor={"blue.500"}
+            borderWidth={4}
+            borderStyle={"solid"}
+          />
+          <Image
+            borderRadius="full"
+            boxSize="110px"
+            src={`/avatars/lk.jpg`}
+            borderColor={"blue.500"}
+            borderWidth={0}
+            borderStyle={"solid"}
+          />
+          <Image borderRadius="full" boxSize="110px" src={`/avatars/sk.jpg`} />
+          <Image borderRadius="full" boxSize="110px" src={`/avatars/jk.jpg`} />
+          <Image borderRadius="full" boxSize="110px" src={`/avatars/nk.jpg`} />
+        </HStack>
       </Flex>
     </TransitionWrapper>
   );
