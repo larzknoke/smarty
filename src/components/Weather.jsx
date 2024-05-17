@@ -1,5 +1,4 @@
 import { CloudSun } from "@phosphor-icons/react";
-import { fetchWeatherApi } from "openmeteo";
 import { useEffect, useState } from "react";
 
 function Weather() {

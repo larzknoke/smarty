@@ -1,34 +1,43 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import deLocale from "@fullcalendar/core/locales/de";
+import { useEffect, useState } from "react";
 
 export default function Calendar() {
+  const [events, setEvents] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/gcal")
+      .then((res) => res.json())
+      .then((data) => {
+        const events = data.events?.map((e) => {
+          return {
+            title: e.summary,
+            start: e.start.date || e.start.dateTime,
+            end: e.end.date || e.end.datTime,
+          };
+        });
+        setEvents(events);
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin]}
-      initialView="dayGridWeek"
-      locale={deLocale}
-      headerToolbar={{
-        left: "prev,next",
-        center: "title",
-        right: "dayGridWeek,dayGridDay",
-      }}
-      events={[
-        {
-          title: "event 1",
-          start: "2024-05-13T10:30:00",
-          end: "2024-05-14T11:30:00",
-          allDay: false,
-        },
-        {
-          title: "event 10",
-          start: "2024-05-13T09:00:00",
-          end: "2024-05-14T09:30:00",
-          allDay: false,
-        },
-        { title: "event 2", date: "2024-05-17" },
-        { title: "event 3", date: "2024-05-17" },
-      ]}
-    />
+    <>
+      {/* <p>{JSON.stringify(events)}</p> */}
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridWeek"
+        locale={deLocale}
+        headerToolbar={{
+          left: "prev,next",
+          center: "title",
+          right: "dayGridWeek,dayGridDay",
+        }}
+        eventMinHeight={30}
+        events={events}
+      />
+    </>
   );
 }

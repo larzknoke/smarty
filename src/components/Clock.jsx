@@ -5,7 +5,7 @@ function Clock() {
         {new Date().toLocaleDateString("de-DE")}
       </span>
       <span className="text-4xl font-semibold">
-        {/* {new Date().toLocaleTimeString([], { timeStyle: "short" })} */}
+        {new Date().toLocaleTimeString([], { timeStyle: "short" })}
       </span>
     </div>
   );

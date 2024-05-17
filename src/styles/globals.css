@@ -25,3 +25,32 @@ body {
     text-wrap: balance;
   }
 }
+
+.fc .fc-button .fc-icon {
+  height: 1.05em;
+}
+
+/* .fc-daygrid-block-event .fc-event-time,
+.fc-daygrid-block-event .fc-event-title {
+  font-size: 1.5em;
+}
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+  font-size: 1.5em;
+} */
+.fc-daygrid-block-event .fc-event-time,
+.fc-daygrid-block-event .fc-event-title {
+  padding: 1px 5px;
+}
+
+.fc-event-title {
+  text-wrap: balance;
+  text-overflow: ellipsis;
+}
+
+:root {
+  --fc-small-font-size: 20px;
+}
+
+.fc-daygrid-dot-event {
+  flex-wrap: wrap;
+}
