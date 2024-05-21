@@ -2,7 +2,7 @@ import { Icon } from "@chakra-ui/react";
 import { CheckCircle, Prohibit } from "@phosphor-icons/react";
 
 export function EMValue(value) {
-  return ((value * -1) / 1000).toFixed(2);
+  return ((value * -1) / 1000).toFixed(1);
 }
 
 export function makeNegativeNumberZero(num) {

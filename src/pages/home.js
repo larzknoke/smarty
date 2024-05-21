@@ -17,6 +17,7 @@ function Home() {
 
   const [socket, setSocket] = useState();
   const [values, setValues] = useState({});
+  const [activeAvatars, setActiveAvatars] = useState([]);
 
   async function setConnection() {
     const connection = await connectSocket(socketConnection);
@@ -41,6 +42,12 @@ function Home() {
 
     return () => socket?.unsubscribeState(states);
   }, [socket]);
+
+  function handleAvatar(avatar) {
+    activeAvatars.includes(avatar)
+      ? setActiveAvatars(activeAvatars.filter((el) => el !== avatar))
+      : setActiveAvatars((prevArr) => [...prevArr, avatar]);
+  }
 
   return (
     <TransitionWrapper>
@@ -97,7 +104,9 @@ function Home() {
           <VStack>
             <Heading size={"3xl"}>
               {makeNegativeNumberZero(
-                values["modbus.0.inputRegisters.30775_Leistung"]
+                (
+                  values["modbus.0.inputRegisters.30775_Leistung"] / 1000
+                ).toFixed(1)
               )}{" "}
               kW
             </Heading>
@@ -106,26 +115,30 @@ function Home() {
         </HStack>
         <Calendar />
         <HStack gap={10} alignSelf={"center"}>
-          <Image
-            borderRadius="full"
-            boxSize="150px"
-            src={`/avatars/alle2.png`}
-            borderColor={"blue.500"}
-            borderWidth={4}
-            borderStyle={"solid"}
-          />
-          <Image
-            borderRadius="full"
-            boxSize="110px"
-            src={`/avatars/lk.jpg`}
-            borderColor={"blue.500"}
-            borderWidth={0}
-            borderStyle={"solid"}
-          />
-          <Image borderRadius="full" boxSize="110px" src={`/avatars/sk.jpg`} />
-          <Image borderRadius="full" boxSize="110px" src={`/avatars/jk.jpg`} />
-          <Image borderRadius="full" boxSize="110px" src={`/avatars/nk.jpg`} />
+          {["alle", "lk", "sk", "nk", "jk"].map((avatar) => {
+            return (
+              <Image
+                key={avatar}
+                className={"avatar-img"}
+                borderRadius="full"
+                boxSize="110px"
+                src={`/avatars/${avatar}.png`}
+                outline={
+                  activeAvatars.includes(avatar) ? "5px solid " : "0px solid"
+                }
+                outlineColor={"orange.500"}
+                transform={{ scale: 2 }}
+                sx={
+                  activeAvatars.includes(avatar)
+                    ? { transform: "scale(1.2)" }
+                    : { transform: "scale(1)" }
+                }
+                onClick={() => handleAvatar(avatar)}
+              />
+            );
+          })}
         </HStack>
+        {JSON.stringify(activeAvatars)}
       </Flex>
     </TransitionWrapper>
   );

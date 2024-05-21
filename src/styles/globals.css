@@ -59,3 +59,8 @@ body {
 .fc-day:nth-child(2n) {
   @apply bg-orange-50;
 }
+
+.avatar-img {
+  transition: all 0.2s ease-in-out;
+  /* outline: 1px solid red; */
+}
