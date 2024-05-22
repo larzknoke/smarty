@@ -10,32 +10,90 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { SolarPanel } from "@phosphor-icons/react";
+import { useState, useEffect } from "react";
+import { socketConnection, connectSocket } from "@/lib/socketConnection";
+import { EMValue, makeNegativeNumberZero } from "@/lib/utils";
 
 function Pool() {
+  const states = [
+    "0_userdata.0.Pool.BayrolPH",
+    "0_userdata.0.Pool.BayrolTemp",
+    "0_userdata.0.Pool.BayrolRedox",
+    "shelly.0.SHSW-1#E8DB84D48F94#1.ext.temperatureC1",
+    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1",
+    "modbus.0.inputRegisters.30775_Leistung",
+    "shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower",
+    "0_userdata.0.Pool.PoolZeitplan",
+    "alias.0.Pool.PumpeStufe1",
+    "alias.0.Pool.PumpeStufe2",
+    "alias.0.Pool.PumpeStufe3",
+  ];
+
+  const [socket, setSocket] = useState();
+  const [values, setValues] = useState({});
+
+  async function setConnection() {
+    const connection = await connectSocket(socketConnection);
+    setSocket(connection);
+  }
+
+  useEffect(() => {
+    setConnection();
+  }, []);
+
+  useEffect(() => {
+    if (socket?.isConnected) {
+      socket?.subscribeState(states, (id, state) => {
+        // console.log("change", state);
+        // console.log("id", id);
+        setValues((prevState) => ({
+          ...prevState,
+          [id]: state?.val || 0,
+        }));
+      });
+    }
+
+    return () => socket?.unsubscribeState(states);
+  }, [socket]);
+
+  function handleToggle(val) {
+    socket?.setState(val, !values[val]);
+  }
+
   return (
     <TransitionWrapper>
       <Flex direction={"column"} w={"85%"} gap={32} mt={40}>
         <HStack justifyContent={"space-between"}>
           <VStack>
-            <Heading size={"4xl"}>7.5</Heading>
+            <Heading size={"4xl"}>
+              {values["0_userdata.0.Pool.BayrolPH"]}
+            </Heading>
             <Heading size={"xl"}>ph</Heading>
           </VStack>
           <VStack>
-            <Heading size={"4xl"}>765</Heading>
+            <Heading size={"4xl"}>
+              {values["0_userdata.0.Pool.BayrolRedox"]}
+            </Heading>
             <Heading size={"xl"}>Redox</Heading>
           </VStack>
           <VStack>
-            <Heading size={"4xl"}>28°</Heading>
+            <Heading size={"4xl"}>
+              {values["0_userdata.0.Pool.BayrolTemp"]}°
+            </Heading>
             <Heading size={"xl"}>Temp. Wasser</Heading>
           </VStack>
         </HStack>
         <HStack justifyContent={"space-around"}>
           <VStack>
-            <Heading size={"3xl"}>22°</Heading>
+            <Heading size={"3xl"}>
+              {values["shelly.0.SHSW-1#E8DB84D48F94#1.ext.temperatureC1"]}°
+            </Heading>
             <Heading size={"xl"}>Temp. Solar</Heading>
           </VStack>
           <VStack>
-            <Heading size={"3xl"}>20</Heading>
+            <Heading size={"3xl"}>
+              {values["stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1"]}°
+            </Heading>
             <Heading size={"xl"}>Temp. Kessel</Heading>
           </VStack>
         </HStack>
@@ -47,9 +105,26 @@ function Pool() {
             <HStack>
               <SolarPanel size={54} className=" text-gray-400" />
               <Heading size={"xl"} color={"gray.500"}>
-                3.2 kW{" "}
-                <Text color={"green.500"} as={"span"}>
-                  +1.5 kw
+                {makeNegativeNumberZero(
+                  (
+                    values["modbus.0.inputRegisters.30775_Leistung"] / 1000
+                  ).toFixed(1)
+                )}{" "}
+                kWh{" / "}
+                <Text
+                  color={
+                    values[
+                      "shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower"
+                    ] < 0
+                      ? "green.500"
+                      : "red.500"
+                  }
+                  as={"span"}
+                >
+                  {EMValue(
+                    values["shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower"]
+                  )}{" "}
+                  kWh
                 </Text>
               </Heading>
             </HStack>
@@ -64,6 +139,8 @@ function Pool() {
               <HStack gap={16}>
                 <Heading size={"3xl"}>Stufe 1</Heading>
                 <Switch
+                  isChecked={values["alias.0.Pool.PumpeStufe1"]}
+                  onChange={() => handleToggle("alias.0.Pool.PumpeStufe1")}
                   colorScheme="teal"
                   size="lg"
                   sx={{
@@ -75,6 +152,8 @@ function Pool() {
               <HStack gap={16}>
                 <Heading size={"3xl"}>Stufe 2</Heading>
                 <Switch
+                  isChecked={values["alias.0.Pool.PumpeStufe2"]}
+                  onChange={() => handleToggle("alias.0.Pool.PumpeStufe2")}
                   colorScheme="teal"
                   size="lg"
                   sx={{
@@ -86,6 +165,8 @@ function Pool() {
               <HStack gap={16}>
                 <Heading size={"3xl"}>Stufe 3</Heading>
                 <Switch
+                  isChecked={values["alias.0.Pool.PumpeStufe3"]}
+                  onChange={() => handleToggle("alias.0.Pool.PumpeStufe3")}
                   colorScheme="teal"
                   size="lg"
                   sx={{
@@ -99,6 +180,10 @@ function Pool() {
               <HStack gap={16}>
                 <Heading size={"2xl"}>Zeitplan</Heading>
                 <Switch
+                  isChecked={values["0_userdata.0.Pool.PoolZeitplan"]}
+                  onChange={() =>
+                    handleToggle("0_userdata.0.Pool.PoolZeitplan")
+                  }
                   colorScheme="teal"
                   size="lg"
                   sx={{

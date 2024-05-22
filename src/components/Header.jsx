@@ -63,11 +63,7 @@ function Header() {
                 {!session && (
                   <button onClick={() => signIn("google")}>Login</button>
                 )}
-                {session && (
-                  <button onClick={() => signOut()}>
-                    {session.user.email} Logout
-                  </button>
-                )}
+                {session && <button onClick={() => signOut()}>Logout</button>}
               </ListItem>
               <Divider />
               <ListItem>

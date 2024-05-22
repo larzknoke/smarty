@@ -68,7 +68,7 @@ function TodoEditModal({ isOpen, onClose, clickedTodo }) {
                 // setIsExploding(true);
               }}
             >
-              Erledigt 🎉
+              Erledigt
               {/* {isExploding && (
                 <ConfettiExplosion
                   onComplete={() => setIsExploding(false)}

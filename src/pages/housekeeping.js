@@ -1,3 +1,4 @@
+import { socketConnection, connectSocket } from "@/lib/socketConnection";
 import TransitionWrapper from "@/components/TransitionWrapper";
 import {
   Flex,
@@ -9,34 +10,83 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { Broom, Plant } from "@phosphor-icons/react";
+import { useState, useEffect } from "react";
+import { EMValue, makeNegativeNumberZero } from "@/lib/utils";
 
 function Housekeeping() {
+  const states = [
+    "stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR",
+    "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
+    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1",
+    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1",
+  ];
+
+  const [socket, setSocket] = useState();
+  const [values, setValues] = useState({});
+
+  async function setConnection() {
+    const connection = await connectSocket(socketConnection);
+    setSocket(connection);
+  }
+
+  useEffect(() => {
+    setConnection();
+  }, []);
+
+  useEffect(() => {
+    if (socket?.isConnected) {
+      socket?.subscribeState(states, (id, state) => {
+        // console.log("change", state);
+        // console.log("id", id);
+        setValues((prevState) => ({
+          ...prevState,
+          [id]: state?.val || 0,
+        }));
+      });
+    }
+
+    return () => socket?.unsubscribeState(states);
+  }, [socket]);
+
   return (
     <TransitionWrapper>
       <Flex direction={"column"} w={"85%"} gap={32} mt={40}>
         <HStack justifyContent={"space-around"}>
           <VStack>
-            <Heading size={"4xl"}>43°</Heading>
+            <Heading size={"4xl"}>
+              {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR"]}°
+              <Text display={"inline"} fontSize={28}>
+                {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR"]}°
+              </Text>
+            </Heading>
             <Heading size={"xl"}>Temp. Wasser</Heading>
           </VStack>
           <VStack>
-            <Heading size={"4xl"} color={"green.500"}>
-              Komfort
+            <Heading size={"4xl"}>
+              {values["stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1"]}°
+              <Text display={"inline"} fontSize={28}>
+                {
+                  values[
+                    "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1"
+                  ]
+                }
+                °
+              </Text>
             </Heading>
-            <Heading size={"xl"}>Status</Heading>
+            <Heading size={"xl"}>Temp. Heizung</Heading>
           </VStack>
         </HStack>
         <HStack justifyContent={"space-around"}>
           <VStack>
-            <Heading size={"3xl"}>55 kW</Heading>
+            <Heading size={"3xl"}>-- kW</Heading>
             <Heading size={"xl"}>Strom Warmwasser</Heading>
           </VStack>
           <VStack>
-            <Heading size={"3xl"}>17 kW</Heading>
+            <Heading size={"3xl"}>-- kW</Heading>
             <Heading size={"xl"}>Strom Heizung</Heading>
           </VStack>
         </HStack>
-        <VStack alignItems={"flex-start"}>
+        <VStack alignItems={"flex-start"} opacity={0.3}>
           <HStack justifyContent={"space-between"} w={"100%"}>
             <Heading size={"2xl"} color={"gray.500"}>
               Staubsauger
@@ -76,7 +126,7 @@ function Housekeeping() {
             </VStack>
           </HStack>
         </VStack>
-        <VStack alignItems={"flex-start"}>
+        <VStack alignItems={"flex-start"} opacity={0.3}>
           <HStack justifyContent={"space-between"} w={"100%"}>
             <Heading size={"2xl"} color={"gray.500"}>
               Rasenmäher

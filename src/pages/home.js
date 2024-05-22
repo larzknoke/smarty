@@ -14,6 +14,10 @@ function Home() {
     "shelly.0.SHEM-3#E8DB84D68ECE#1.Total.InstantPower",
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
     "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1",
+    "trashschedule.0.type.biotonne.daysLeft",
+    "trashschedule.0.type.gelberSack.daysLeft",
+    "trashschedule.0.type.papiertonne.daysLeft",
+    "trashschedule.0.type.restabfalltonne.daysLeft",
   ];
 
   const [socket, setSocket] = useState();
@@ -107,7 +111,12 @@ function Home() {
             <Heading size={"xl"}>Leistung</Heading>
           </VStack>
         </HStack>
-        <Trash />
+        <Trash
+          rest={values["trashschedule.0.type.restabfalltonne.daysLeft"]}
+          bio={values["trashschedule.0.type.biotonne.daysLeft"]}
+          gelb={values["trashschedule.0.type.gelberSack.daysLeft"]}
+          papier={values["trashschedule.0.type.papiertonne.daysLeft"]}
+        />
         <Calendar />
       </Flex>
     </TransitionWrapper>
