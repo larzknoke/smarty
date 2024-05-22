@@ -7,6 +7,9 @@ import { authOptions } from "./auth/[...nextauth]";
 
 export default async (req, res) => {
   try {
+    const { cals } = req.query;
+    const calsArr = cals.split(",");
+
     const session = await getServerSession(req, res, authOptions);
     const token = await getToken({ req });
     console.log("session", session);
@@ -48,7 +51,7 @@ export default async (req, res) => {
       orderBy: "startTime",
     });
     const events = (await result).data.items || [];
-    console.log("events", events);
+    // console.log("events", events);
     // const events = result.data.items || [];
     // const json = {
     //   events,

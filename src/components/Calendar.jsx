@@ -13,7 +13,7 @@ export default function Calendar() {
     fetch(
       "/api/gcal?" +
         new URLSearchParams({
-          foo: ["lk", "alle"].join(","),
+          cals: ["lk", "alle"].join(","),
         })
     )
       .then((res) => res.json())
