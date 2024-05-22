@@ -53,9 +53,9 @@ export default function App({
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
         <Layout>
-          <AnimatePresence mode="wait" initial={false}>
-            <Component {...pageProps} key={router.asPath} />
-          </AnimatePresence>
+          {/* <AnimatePresence mode="wait" initial={false}> */}
+          <Component {...pageProps} key={router.asPath} />
+          {/* </AnimatePresence> */}
         </Layout>
       </ChakraProvider>
     </SessionProvider>

@@ -10,7 +10,12 @@ export default function Calendar() {
   const [activeAvatars, setActiveAvatars] = useState([]);
 
   useEffect(() => {
-    fetch("/api/gcal")
+    fetch(
+      "/api/gcal?" +
+        new URLSearchParams({
+          foo: ["lk", "alle"].join(","),
+        })
+    )
       .then((res) => res.json())
       .then((data) => {
         const events = data.events?.map((e) => {
