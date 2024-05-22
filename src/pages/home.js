@@ -2,8 +2,9 @@ import { socketConnection, connectSocket } from "@/lib/socketConnection";
 import TransitionWrapper from "@/components/TransitionWrapper";
 import { Text, Flex, HStack, Heading, VStack, Image } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import Calendar from "@/components/Calendar/Calendar";
+import Calendar from "@/components/Calendar";
 import { EMValue, makeNegativeNumberZero } from "@/lib/utils";
+import Trash from "@/components/Trash";
 function Home() {
   const states = [
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR",
@@ -17,7 +18,6 @@ function Home() {
 
   const [socket, setSocket] = useState();
   const [values, setValues] = useState({});
-  const [activeAvatars, setActiveAvatars] = useState([]);
 
   async function setConnection() {
     const connection = await connectSocket(socketConnection);
@@ -43,15 +43,9 @@ function Home() {
     return () => socket?.unsubscribeState(states);
   }, [socket]);
 
-  function handleAvatar(avatar) {
-    activeAvatars.includes(avatar)
-      ? setActiveAvatars(activeAvatars.filter((el) => el !== avatar))
-      : setActiveAvatars((prevArr) => [...prevArr, avatar]);
-  }
-
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"95%"} gap={16} mt={40} px={8}>
+      <Flex direction={"column"} w={"95%"} gap={20} mt={40} px={8}>
         {/* <Text>VALUES: {JSON.stringify(values)}</Text> */}
         <HStack justifyContent={"space-between"}>
           <VStack>
@@ -84,7 +78,7 @@ function Home() {
             <Heading size={"xl"}>Heizung</Heading>
           </VStack>
         </HStack>
-        <HStack justifyContent={"space-around"} mb={16}>
+        <HStack justifyContent={"space-around"}>
           <VStack>
             <Heading
               size={"3xl"}
@@ -113,32 +107,8 @@ function Home() {
             <Heading size={"xl"}>Leistung</Heading>
           </VStack>
         </HStack>
+        <Trash />
         <Calendar />
-        <HStack gap={10} alignSelf={"center"}>
-          {["alle", "lk", "sk", "nk", "jk"].map((avatar) => {
-            return (
-              <Image
-                key={avatar}
-                className={"avatar-img"}
-                borderRadius="full"
-                boxSize="110px"
-                src={`/avatars/${avatar}.png`}
-                outline={
-                  activeAvatars.includes(avatar) ? "5px solid " : "0px solid"
-                }
-                outlineColor={"orange.500"}
-                transform={{ scale: 2 }}
-                sx={
-                  activeAvatars.includes(avatar)
-                    ? { transform: "scale(1.2)" }
-                    : { transform: "scale(1)" }
-                }
-                onClick={() => handleAvatar(avatar)}
-              />
-            );
-          })}
-        </HStack>
-        {JSON.stringify(activeAvatars)}
       </Flex>
     </TransitionWrapper>
   );
