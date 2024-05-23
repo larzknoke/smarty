@@ -51,11 +51,11 @@ export default async (req, res) => {
 
     let allIDs = [];
     const alleCalIds = [
-      "15o5sfjde220dar98njal5m3u4@group.calendar.google.com",
-      "c_4f27396d8df958dc4c4e421a49473e0e7571bd176ba15d9be1a97b0f70dbb5e4@group.calendar.google.com",
+      "15o5sfjde220dar98njal5m3u4@group.calendar.google.com", // ALLE
+      "c_4f27396d8df958dc4c4e421a49473e0e7571bd176ba15d9be1a97b0f70dbb5e4@group.calendar.google.com", // MÜLL
     ];
     const jonasCalIds = [
-      "kfjresb61dnbrqo4a7gtr1aaq53vnh58@import.calendar.google.com",
+      "kfjresb61dnbrqo4a7gtr1aaq53vnh58@import.calendar.google.com", //SV 06 Holzminden III (E-Junioren)
     ];
 
     if (calsParams.includes("alle")) {

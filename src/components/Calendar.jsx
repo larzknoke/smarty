@@ -7,13 +7,13 @@ import { HStack, Image, VStack, Flex, chakra } from "@chakra-ui/react";
 export default function Calendar() {
   const [events, setEvents] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [activeAvatars, setActiveAvatars] = useState([]);
+  const [activeAvatars, setActiveAvatars] = useState(["alle"]);
 
   useEffect(() => {
     fetch(
       "/api/gcal?" +
         new URLSearchParams({
-          cals: ["lk", "alle"].join(","),
+          cals: activeAvatars.join(","),
         })
     )
       .then((res) => res.json())
@@ -28,7 +28,7 @@ export default function Calendar() {
         setEvents(events);
         setLoading(false);
       });
-  }, []);
+  }, [activeAvatars]);
 
   function handleAvatar(avatar) {
     activeAvatars.includes(avatar)

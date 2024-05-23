@@ -1,12 +1,29 @@
+import { useState, useEffect } from "react";
+
 function Clock() {
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString([], { timeStyle: "short" })
+  );
+
+  useEffect(() => {
+    setInterval(() => {
+      const dateObject = new Date();
+
+      const hour = dateObject.getHours();
+      const minute = dateObject.getMinutes();
+
+      const currentTime = hour + ":" + minute;
+
+      setTime(currentTime);
+    }, 60000);
+  }, []);
+
   return (
     <div className="flex flex-col">
       <span className="text-right">
         {new Date().toLocaleDateString("de-DE")}
       </span>
-      <span className="text-4xl font-semibold">
-        {new Date().toLocaleTimeString([], { timeStyle: "short" })}
-      </span>
+      <span className="text-4xl font-semibold">{time}</span>
     </div>
   );
 }
