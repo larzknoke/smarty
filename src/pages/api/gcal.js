@@ -7,9 +7,9 @@ import { authOptions } from "./auth/[...nextauth]";
 
 export default async (req, res) => {
   try {
-    const { cals } = req.query;
-    const calsArr = cals.split(",");
-
+    // +++++++++++++++++++++
+    // AUTH
+    // +++++++++++++++++++++
     const session = await getServerSession(req, res, authOptions);
     const token = await getToken({ req });
     console.log("session", session);
@@ -42,22 +42,38 @@ export default async (req, res) => {
 
     console.log("oauth2Client", oauth2Client);
 
-    const calendar = google.calendar({ version: "v3", auth: oauth2Client });
-    const result = calendar.events.list({
-      calendarId: "15o5sfjde220dar98njal5m3u4@group.calendar.google.com",
-      timeMin: new Date().toISOString(),
-      maxResults: 50,
-      singleEvents: true,
-      orderBy: "startTime",
-    });
-    const events = (await result).data.items || [];
-    // console.log("events", events);
-    // const events = result.data.items || [];
-    // const json = {
-    //   events,
-    // };
+    // +++++++++++++++++++++
+    // GET CALENDAR EVENTS
+    // +++++++++++++++++++++
 
-    res.status(200).json({ success: true, events });
+    const { cals } = req.query;
+    const calsArr = cals?.split(",") || [];
+
+    const allEvents = [];
+    const alleCalIds = [
+      "15o5sfjde220dar98njal5m3u4@group.calendar.google.com",
+      "c_4f27396d8df958dc4c4e421a49473e0e7571bd176ba15d9be1a97b0f70dbb5e4@group.calendar.google.com",
+    ];
+
+    const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+
+    const allPromiseEvents = await Promise.all(
+      alleCalIds.map(async (calID) => {
+        const calData = await calendar.events.list({
+          calendarId: calID,
+          timeMin: new Date().toISOString(),
+          maxResults: 50,
+          singleEvents: true,
+          orderBy: "startTime",
+        });
+        const events = calData.data.items || [];
+        return events;
+      })
+    );
+
+    res
+      .status(200)
+      .json({ success: true, events: allPromiseEvents.flat(Infinity) });
   } catch (error) {
     console.error("An error occurred: ", error);
     return res.status(500).json({ error: "Internal Error" });
