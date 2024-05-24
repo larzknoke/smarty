@@ -12,8 +12,8 @@ export default async (req, res) => {
     // +++++++++++++++++++++
     const session = await getServerSession(req, res, authOptions);
     const token = await getToken({ req });
-    // console.log("session", session);
-    // console.log("token", token);
+    console.log("session", session);
+    console.log("token getToken", token);
 
     if (!session) {
       return res.status(401).json({ error: "No Session Active" });
