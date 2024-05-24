@@ -38,4 +38,4 @@ next-env.d.ts
 google-api-cred.json
 key.json
 
-.env
+.env*
