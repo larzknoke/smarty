@@ -1,10 +1,6 @@
 import { Inter } from "next/font/google";
-import Header from "@/components/Header";
 import { socketConnection, connectSocket } from "@/lib/socketConnection";
 import { useEffect, useState } from "react";
-import Tasks from "@/components/Tasks";
-import Login from "@/components/Login";
-import MainContent from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,11 +40,6 @@ export default function Home() {
       <p>Index</p>
       <main className="p-4">
         <p>{uptime}</p>
-        {/* <p>{JSON.stringify(socket?.connected)}</p>
-        <hr my={6} />
-        <Tasks />
-        <hr my={6} />
-        <Login /> */}
       </main>
     </>
   );
