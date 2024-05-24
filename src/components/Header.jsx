@@ -33,7 +33,7 @@ function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const btnRef = useRef();
 
-  console.log("session", session);
+  console.log("session header", session);
 
   return (
     <VStack gap={6} w={"full"}>
