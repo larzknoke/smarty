@@ -6,14 +6,7 @@ function Clock() {
   useEffect(() => {
     setTime(new Date().toLocaleTimeString([], { timeStyle: "short" }));
     setInterval(() => {
-      const dateObject = new Date();
-
-      const hour = dateObject.getHours();
-      const minute = dateObject.getMinutes();
-
-      const currentTime = hour + ":" + minute;
-
-      setTime(currentTime);
+      setTime(new Date().toLocaleTimeString([], { timeStyle: "short" }));
     }, 60000);
   }, [time]);
 
