@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { VStack } from "@chakra-ui/react";
+import { VStack, Box } from "@chakra-ui/react";
 import React from "react";
 import ContentTabs from "./ContentTabs";
 import ContentArea from "./ContentArea";
@@ -11,8 +11,11 @@ import {
   SwimmingPool,
 } from "@phosphor-icons/react";
 import Header from "./Header";
+import { useIdle } from "@uidotdev/usehooks";
 
 function Layout({ children }) {
+  const idle = useIdle(5000);
+
   let tabs = [
     { id: "home", label: <HouseLine size={80} /> },
     { id: "todos", label: <ListChecks size={80} /> },
@@ -29,6 +32,18 @@ function Layout({ children }) {
 
   return (
     <VStack p={8} overflow={"hidden"}>
+      <Box
+        bg="black"
+        opacity={idle ? 0.9 : 0}
+        position={"fixed"}
+        bottom={idle ? 0 : "100%"}
+        left={0}
+        right={0}
+        top={0}
+        zIndex={idle ? 999 : -999}
+        visibility={idle ? "visible" : "hidden"}
+        transition={"all 400ms ease-in-out"}
+      />
       <Header />
       {children}
       <ContentTabs tabs={tabs} activeTab={activeTab} handleTab={handleTab} />

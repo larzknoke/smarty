@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -19,6 +19,7 @@
     "@iobroker/socket-client": "^2.4.6",
     "@phosphor-icons/react": "^2.1.5",
     "@prisma/client": "^5.13.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "chakra-react-select": "^4.7.6",
     "framer-motion": "^11.1.7",
     "googleapis": "^134.0.0",
