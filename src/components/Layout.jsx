@@ -14,7 +14,7 @@ import Header from "./Header";
 import { useIdle } from "@uidotdev/usehooks";
 
 function Layout({ children }) {
-  const idle = useIdle(5000);
+  const idle = useIdle(20000);
 
   let tabs = [
     { id: "home", label: <HouseLine size={80} /> },
@@ -34,7 +34,7 @@ function Layout({ children }) {
     <VStack p={8} overflow={"hidden"} id="AppWrapper">
       <Box
         bg="black"
-        opacity={idle ? 0.9 : 0}
+        opacity={idle ? 0.7 : 0}
         position={"fixed"}
         bottom={idle ? 0 : "100%"}
         left={0}
