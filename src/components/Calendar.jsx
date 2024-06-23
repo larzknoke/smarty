@@ -7,7 +7,13 @@ import { HStack, Image, VStack, Flex, chakra } from "@chakra-ui/react";
 export default function Calendar() {
   const [events, setEvents] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [activeAvatars, setActiveAvatars] = useState(["alle"]);
+  const [activeAvatars, setActiveAvatars] = useState([
+    "alle",
+    "lk",
+    "sk",
+    "nk",
+    "jk",
+  ]);
 
   useEffect(() => {
     fetch(
@@ -52,7 +58,7 @@ export default function Calendar() {
         eventMinHeight={30}
         events={events}
       />
-      <HStack gap={10} justifyContent={"center"}>
+      <HStack gap={14} justifyContent={"center"}>
         {["alle", "lk", "sk", "nk", "jk"].map((avatar) => {
           return (
             <Image
