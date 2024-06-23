@@ -20,7 +20,6 @@ function Weather() {
 
   useEffect(() => {
     getWeatherData();
-    console.log("weather data", weatherData);
   }, []);
 
   function getWeatherIcon(codes) {

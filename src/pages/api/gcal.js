@@ -55,14 +55,27 @@ export default async (req, res) => {
       "c_4f27396d8df958dc4c4e421a49473e0e7571bd176ba15d9be1a97b0f70dbb5e4@group.calendar.google.com", // MÜLL
     ];
     const jonasCalIds = [
+      "419606b94192f9268bccd4e2c21653a2dd519af83dca06060b84d5ebac21fe72@group.calendar.google.com",
       "kfjresb61dnbrqo4a7gtr1aaq53vnh58@import.calendar.google.com", //SV 06 Holzminden III (E-Junioren)
     ];
+
+    const noraCalIds = [
+      "a87d093d35f2198f1dadcd7054d92f8f51796a9e5c736a941403ddbeeb4ef70c@group.calendar.google.com",
+    ];
+
+    const larsCalIds = ["info@larsknoke.com"];
 
     if (calsParams.includes("alle")) {
       allIDs = allIDs.concat(alleCalIds);
     }
     if (calsParams.includes("jk")) {
       allIDs = allIDs.concat(jonasCalIds);
+    }
+    if (calsParams.includes("nk")) {
+      allIDs = allIDs.concat(noraCalIds);
+    }
+    if (calsParams.includes("lk")) {
+      allIDs = allIDs.concat(larsCalIds);
     }
 
     const uniqIds = [...new Set(allIDs)];

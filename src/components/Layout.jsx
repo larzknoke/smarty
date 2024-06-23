@@ -31,7 +31,7 @@ function Layout({ children }) {
   }
 
   return (
-    <VStack p={8} overflow={"hidden"}>
+    <VStack p={8} overflow={"hidden"} id="AppWrapper">
       <Box
         bg="black"
         opacity={idle ? 0.9 : 0}

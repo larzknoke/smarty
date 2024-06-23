@@ -2,6 +2,7 @@ import {
   List as ListIconP,
   Gear as GearIcon,
   WifiHigh as WifiHighIcon,
+  WifiSlash,
 } from "@phosphor-icons/react";
 import Weather from "./Weather";
 import Clock from "./Clock";
@@ -10,7 +11,6 @@ import {
   Spacer,
   VStack,
   useDisclosure,
-  useRef,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -27,11 +27,12 @@ import {
 } from "@chakra-ui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import useNetworkStatus from "@/hooks/networkStatus";
 
 function Header() {
   const { data: session } = useSession();
+  const { isOnline } = useNetworkStatus();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const btnRef = useRef();
 
   console.log("session header", session);
 
@@ -40,7 +41,7 @@ function Header() {
       <Flex gap={5} w={"full"}>
         <ListIconP size={32} onClick={onOpen} />
         <Spacer />
-        <WifiHighIcon size={32} />
+        {isOnline ? <WifiHighIcon size={32} /> : <WifiSlash size={32} />}
         <GearIcon size={32} />
       </Flex>
       <Flex w={"full"}>
