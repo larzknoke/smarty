@@ -64,6 +64,7 @@ export default async (req, res) => {
     ];
 
     const larsCalIds = ["info@larsknoke.com"];
+    const sonjaCalIds = ["sonja.knoke@gmail.com"];
 
     if (calsParams.includes("alle")) {
       allIDs = allIDs.concat(alleCalIds);
@@ -76,6 +77,9 @@ export default async (req, res) => {
     }
     if (calsParams.includes("lk")) {
       allIDs = allIDs.concat(larsCalIds);
+    }
+    if (calsParams.includes("sk")) {
+      allIDs = allIDs.concat(sonjaCalIds);
     }
 
     const uniqIds = [...new Set(allIDs)];

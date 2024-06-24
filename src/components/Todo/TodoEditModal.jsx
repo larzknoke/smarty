@@ -34,7 +34,44 @@ function TodoEditModal({ isOpen, onClose, clickedTodo }) {
       } else {
         const resData = await res.json();
         toast({
-          title: `Todo ${resData.result.title} abgeschlossen.`,
+          title: `Todo "${resData.result.title}" abgeschlossen.`,
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        onClose();
+        router.push("/todos");
+      }
+    } catch (error) {
+      console.error("Err", error);
+      toast({
+        title: "Ein Fehler ist aufgetreten",
+        description: JSON.stringify(error),
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }
+
+  async function deleteTodo(id) {
+    try {
+      const res = await fetch("/api/todo", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(id),
+      });
+      if (res.status != 200) {
+        toast({
+          title: "Ein Fehler ist aufgetreten",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      } else {
+        const resData = await res.json();
+        toast({
+          title: `Todo "${resData.result.title}" gelöscht.`,
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -76,9 +113,15 @@ function TodoEditModal({ isOpen, onClose, clickedTodo }) {
                 />
               )} */}
             </Button>
-            <ButtonGroup variant="outline" spacing="4" width={"100%"}>
+            <ButtonGroup
+              variant="outline"
+              justifyContent={"space-between"}
+              width={"100%"}
+            >
               <Button onClick={onClose}>Abbrechen</Button>
-              <Button isDisabled={true}>Verschieben</Button>
+              <Button colorScheme="red" onClick={() => deleteTodo(clickedTodo)}>
+                Löschen
+              </Button>
               <Button colorScheme="green" isDisabled={true}>
                 Bearbeiten
               </Button>

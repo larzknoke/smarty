@@ -10,7 +10,7 @@ function TodoUser({
   handleClickedUser,
 }) {
   return (
-    <VStack gap={6} maxW={"250px"}>
+    <VStack gap={6} width={"25%"}>
       <Image
         borderRadius="full"
         boxSize="200px"

@@ -43,7 +43,13 @@ function Todos({ users }) {
           Todos
         </Heading>
         <Divider my={3} size="xl" sx={{ borderBottomWidth: "4px" }} />
-        <HStack gap={10} alignItems={"flex-start"}>
+        <HStack
+          gap={10}
+          alignItems={"flex-start"}
+          flexGrow={"1"}
+          flexShrink={"1"}
+          flexBasis={"25%"}
+        >
           {users.length > 0 &&
             users.map((user) => {
               return (

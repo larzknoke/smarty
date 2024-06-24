@@ -113,7 +113,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
             <SimpleGrid spacing={6} columns={3} w={"full"}>
               <GridItem colSpan={3}>
                 <FormControl isInvalid={errors.title}>
-                  <FormLabel>Titel</FormLabel>
+                  <FormLabel>Todo</FormLabel>
                   <Input name="title" type="text" {...register("title")} />
                   <FormErrorMessage>
                     {errors.title && errors.title.message}
@@ -122,7 +122,7 @@ function TodoNewModal({ isOpen, onClose, clickedUser }) {
               </GridItem>
               <GridItem colSpan={3}>
                 <FormControl isInvalid={errors.content}>
-                  <FormLabel>Inhalt</FormLabel>
+                  <FormLabel>Beschreibung</FormLabel>
                   <Input name="content" type="text" {...register("content")} />
                   <FormErrorMessage>
                     {errors.content && errors.content.message}
