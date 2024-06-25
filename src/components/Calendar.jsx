@@ -1,8 +1,9 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import listPlugin from "@fullcalendar/list";
 import deLocale from "@fullcalendar/core/locales/de";
 import { useEffect, useState } from "react";
-import { HStack, Image, VStack, Flex, chakra } from "@chakra-ui/react";
+import { HStack, Image, Spinner, VStack } from "@chakra-ui/react";
 
 export default function Calendar() {
   const [events, setEvents] = useState(null);
@@ -16,6 +17,7 @@ export default function Calendar() {
   ]);
 
   useEffect(() => {
+    setLoading(true);
     fetch(
       "/api/gcal?" +
         new URLSearchParams({
@@ -47,13 +49,13 @@ export default function Calendar() {
       <FullCalendar
         height={"30em"}
         // aspectRatio={1.5}
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, listPlugin]}
         initialView="dayGridWeek"
         locale={deLocale}
         headerToolbar={{
-          left: "prev,next",
+          left: "prev,next,today",
           center: "title",
-          right: "dayGridWeek,dayGridDay",
+          right: "dayGridWeek,dayGridDay,listWeek",
         }}
         eventMinHeight={30}
         events={events}
@@ -82,6 +84,7 @@ export default function Calendar() {
           );
         })}
       </HStack>
+      {isLoading && <Spinner size={"xl"} margin={"auto"} />}
     </VStack>
   );
 }
