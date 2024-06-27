@@ -9,9 +9,9 @@ const PoolData = dynamic(() => import("@/components/PoolData"), {
 function Pool() {
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"85%"} gap={32} mt={40}>
+      <Flex direction={"column"} w={"85%"} gap={24} mt={40}>
         <PoolData />
-        {/* <PoolStream /> */}
+        <PoolStream />
       </Flex>
     </TransitionWrapper>
   );
