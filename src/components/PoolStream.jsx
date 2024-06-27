@@ -1,22 +1,17 @@
 import React, { useEffect } from "react";
 // import JSMpeg from "jsmpeg-player";
 import Script from "next/script";
+import { useScript } from "@uidotdev/usehooks";
+import { Spinner } from "@chakra-ui/react";
 
 function PoolStream() {
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     var videoUrl = "ws://localhost:9999/";
-  //     var player = new JSMpeg.VideoElement("#video-canvas", videoUrl, {
-  //       autoplay: true,
-  //     });
-  //     console.log(player);
-  //   }
-  // }, []);
+  const status = useScript(`jsmpeg.min.js`, {
+    removeOnUnmount: true,
+  });
 
   return (
     <>
       <canvas id="stream-canvas"></canvas>
-      <Script src="jsmpeg.min.js" id="jsmpeg"></Script>
     </>
   );
 }
