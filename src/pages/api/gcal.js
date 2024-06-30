@@ -90,7 +90,9 @@ export default async (req, res) => {
       uniqIds.map(async (calID) => {
         const calData = await calendar.events.list({
           calendarId: calID,
-          timeMin: new Date().toISOString(),
+          timeMin: ((date) => date.setDate(date.getDate() - 7) && date)(
+            new Date()
+          ).toISOString(),
           maxResults: 50,
           singleEvents: true,
           orderBy: "startTime",
