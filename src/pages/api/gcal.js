@@ -56,7 +56,7 @@ export default async (req, res) => {
     ];
     const jonasCalIds = [
       "419606b94192f9268bccd4e2c21653a2dd519af83dca06060b84d5ebac21fe72@group.calendar.google.com",
-      "kfjresb61dnbrqo4a7gtr1aaq53vnh58@import.calendar.google.com", //SV 06 Holzminden III (E-Junioren)
+      "1n2uphj65oe1ojvrbc4tmlj888tafcea@import.calendar.google.com", //SV 06 Holzminden I (E-Junioren)
     ];
 
     const noraCalIds = [
