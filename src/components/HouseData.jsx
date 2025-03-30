@@ -11,7 +11,7 @@ import {
   Divider,
   Switch,
 } from "@chakra-ui/react";
-import { Broom, Plant } from "@phosphor-icons/react";
+import { Broom, Plant, BowlSteam } from "@phosphor-icons/react";
 
 function PoolData() {
   const states = [
@@ -19,6 +19,7 @@ function PoolData() {
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
     "stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1",
     "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1",
+    "stiebel-isg.0.Einstellungen.BETRIEBSART.val1",
   ];
 
   const [socket, setSocket] = useState();
@@ -50,13 +51,40 @@ function PoolData() {
     socket?.setState(val, !values[val]);
   }
 
+  function getBetriebsart(val) {
+    switch (val) {
+      case 0:
+        return "Notbetrieb";
+      case 1:
+        return "Bereitschaft";
+      case 2:
+        return "Programmbetrieb";
+      case 3:
+        return "Komforrtbetrieb";
+      case 4:
+        return "Ecobetrieb";
+      case 5:
+        return "Warmwasserbetrieb";
+      default:
+        return "Unbekannt";
+    }
+  }
+
   return (
     <>
+      <VStack>
+        <Heading size={"4xl"} color={"green.500"}>
+          {getBetriebsart(
+            values["stiebel-isg.0.Einstellungen.BETRIEBSART.val1"]
+          )}
+        </Heading>
+        <Heading size={"xl"}>Modus</Heading>
+      </VStack>
       <HStack justifyContent={"space-around"}>
         <VStack>
           <Heading size={"4xl"}>
             {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR"]}°
-            <Text display={"inline"} fontSize={28}>
+            <Text display={"inline"} fontSize={36}>
               {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR"]}°
             </Text>
           </Heading>
@@ -65,7 +93,7 @@ function PoolData() {
         <VStack>
           <Heading size={"4xl"}>
             {values["stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1"]}°
-            <Text display={"inline"} fontSize={28}>
+            <Text display={"inline"} fontSize={36}>
               {values["stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1"]}°
             </Text>
           </Heading>
@@ -82,13 +110,13 @@ function PoolData() {
           <Heading size={"xl"}>Strom Heizung</Heading>
         </VStack>
       </HStack>
-      <VStack alignItems={"flex-start"} opacity={0.3}>
+      {/* <VStack alignItems={"flex-start"}>
         <HStack justifyContent={"space-between"} w={"100%"}>
           <Heading size={"2xl"} color={"gray.500"}>
-            Staubsauger
+            Heizung
           </Heading>
           <HStack>
-            <Broom size={54} className=" text-gray-400" />
+            <BowlSteam size={54} className=" text-gray-400" />
           </HStack>
         </HStack>
         <Divider my={6} size="xl" sx={{ borderBottomWidth: "4px" }} />
@@ -99,29 +127,14 @@ function PoolData() {
         >
           <VStack>
             <Heading size={"3xl"} color={"green.500"}>
-              Lädt
+              {getBetriebsart(
+                values["stiebel-isg.0.Einstellungen.BETRIEBSART.val1"]
+              )}
             </Heading>
-            <Heading size={"xl"}>Status</Heading>
-          </VStack>
-          <VStack>
-            <Heading size={"3xl"}>43 %</Heading>
-            <Heading size={"xl"}>Batterie</Heading>
-          </VStack>
-          <VStack alignItems={"flex-start"}>
-            <VStack gap={4}>
-              <Switch
-                colorScheme="teal"
-                size="lg"
-                sx={{
-                  "--switch-track-width": "6rem",
-                  "--switch-track-height": "3rem",
-                }}
-              />
-              <Heading size={"xl"}>Saugen</Heading>
-            </VStack>
+            <Heading size={"xl"}>Modus</Heading>
           </VStack>
         </HStack>
-      </VStack>
+      </VStack> */}
       <VStack alignItems={"flex-start"} opacity={0.3}>
         <HStack justifyContent={"space-between"} w={"100%"}>
           <Heading size={"2xl"} color={"gray.500"}>
