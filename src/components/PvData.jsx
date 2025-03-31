@@ -161,7 +161,13 @@ function PoolData() {
         </VStack>
       </HStack>
       <HStack mt={10} mb={20}>
-        <Tabs w={"100%"} size={"lg"} variant="enclosed" isFitted>
+        <Tabs
+          w={"100%"}
+          size={"lg"}
+          variant="enclosed"
+          colorScheme={"teal"}
+          isFitted
+        >
           <TabList>
             <Tab fontSize={32} fontWeight={600}>
               Verbrauch
