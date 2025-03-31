@@ -14,6 +14,11 @@ import {
   RadioGroup,
   Radio,
   ButtonGroup,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from "@chakra-ui/react";
 import { Car } from "@phosphor-icons/react";
 
@@ -133,7 +138,7 @@ function PoolData() {
           <Heading size={"xl"}>3EM</Heading>
         </VStack>
       </HStack>
-      <HStack justifyContent={"space-around"} mb={20}>
+      <HStack justifyContent={"space-around"}>
         <VStack>
           <Heading size={"3xl"}>
             {(
@@ -154,6 +159,212 @@ function PoolData() {
           </Heading>
           <Heading size={"xl"}>Tagesverbrauch</Heading>
         </VStack>
+      </HStack>
+      <HStack mt={10} mb={20}>
+        <Tabs w={"100%"} size={"lg"} variant="enclosed" isFitted>
+          <TabList>
+            <Tab fontSize={32} fontWeight={600}>
+              Verbrauch
+            </Tab>
+            <Tab fontSize={32} fontWeight={600}>
+              Eingespeist
+            </Tab>
+            <Tab fontSize={32} fontWeight={600}>
+              Erzeugt
+            </Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel py={8}>
+              <HStack
+                justifyContent={"space-between"}
+                w={"100%"}
+                alignItems={"flex-start"}
+              >
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.heute"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.gestern"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Heute</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.diese_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letzte_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Woche</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.dieser_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letzter_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Monat</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.dieses_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letztes_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+
+                  <Heading size={"md"}>Verbrauch Jahr</Heading>
+                </VStack>
+              </HStack>
+            </TabPanel>
+            <TabPanel py={8}>
+              <HStack
+                justifyContent={"space-between"}
+                w={"100%"}
+                alignItems={"flex-start"}
+              >
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.heute"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.gestern"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Heute</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.diese_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letzte_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Woche</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.dieser_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letzter_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Monat</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.dieses_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letztes_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Jahr</Heading>
+                </VStack>
+              </HStack>
+            </TabPanel>
+            <TabPanel py={8}>
+              <p>Erzeugt</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </HStack>
       <VStack alignItems={"flex-start"}>
         <HStack justifyContent={"space-between"} w={"100%"}>
@@ -265,13 +476,217 @@ function PoolData() {
           </HStack>
         </VStack>
       </VStack>
-      <VStack alignItems={"flex-start"}>
+      {/* <VStack alignItems={"flex-start"}>
         <HStack justifyContent={"space-between"} w={"100%"}>
           <Heading size={"2xl"} color={"gray.500"}>
             Photovoltaik-Anlage
           </Heading>
         </HStack>
         <Divider my={6} size="xl" sx={{ borderBottomWidth: "4px" }} />
+        <Tabs w={"100%"} size={"lg"} variant="enclosed">
+          <TabList>
+            <Tab fontSize={32} fontWeight={600}>
+              Verbrauch
+            </Tab>
+            <Tab fontSize={32} fontWeight={600}>
+              Eingespeist
+            </Tab>
+            <Tab fontSize={32} fontWeight={600}>
+              Erzeugt
+            </Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel py={8}>
+              <HStack
+                justifyContent={"space-between"}
+                w={"100%"}
+                alignItems={"flex-start"}
+              >
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"red.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.heute"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.gestern"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Heute</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"red.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.diese_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letzte_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Woche</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"red.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.dieser_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letzter_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Verbrauch Monat</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"red.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.dieses_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total.letztes_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+
+                  <Heading size={"md"}>Verbrauch Jahr</Heading>
+                </VStack>
+              </HStack>
+            </TabPanel>
+            <TabPanel py={8}>
+              <HStack
+                justifyContent={"space-between"}
+                w={"100%"}
+                alignItems={"flex-start"}
+              >
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"green.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.heute"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.gestern"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Heute</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"green.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.diese_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letzte_woche"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Woche</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"green.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.dieser_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letzter_monat"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Monat</Heading>
+                </VStack>
+                <VStack>
+                  <VStack>
+                    <Heading size={"xl"} color={"green.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.dieses_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                    <Heading size={"md"} color={"gray.500"}>
+                      {(
+                        values[
+                          "javascript.0.ShellyVerbrauch.SHEM-3#E8DB84D68ECE#1.Total_Returned.letztes_jahr"
+                        ] / 1000
+                      ).toFixed(1)}{" "}
+                      kW
+                    </Heading>
+                  </VStack>
+                  <Heading size={"md"}>Eingespeist Jahr</Heading>
+                </VStack>
+              </HStack>
+            </TabPanel>
+            <TabPanel py={8}>
+              <p>Erzeugt</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
         <VStack width={"100%"} gap={10}>
           <HStack
             justifyContent={"space-between"}
@@ -455,7 +870,7 @@ function PoolData() {
             </VStack>
           </HStack>
         </VStack>
-      </VStack>
+      </VStack> */}
     </>
   );
 }
