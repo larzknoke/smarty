@@ -8,7 +8,7 @@ const PvData = dynamic(() => import("@/components/PvData"), {
 function PV() {
   return (
     <TransitionWrapper>
-      <Flex direction={"column"} w={"85%"} gap={32} mt={40}>
+      <Flex direction={"column"} w={"85%"} gap={12} mt={32}>
         <PvData />
       </Flex>
     </TransitionWrapper>
