@@ -10,16 +10,32 @@ import {
   Image,
   Divider,
   Switch,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Lorem,
+  Button,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { Broom, Plant, BowlSteam } from "@phosphor-icons/react";
+import { Broom, Plant, BowlSteam, HardDrives } from "@phosphor-icons/react";
 
 function PoolData() {
   const states = [
     "stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR",
-    "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
+    "stiebel-isg.0.Einstellungen.WARMWASSER.WARMWASSERTEMPERATUREN.val22",
     "stiebel-isg.0.Info.ANLAGE.HEIZUNG.ISTTEMPERATUR_HK_1",
     "stiebel-isg.0.Info.ANLAGE.HEIZUNG.SOLLTEMPERATUR_HK_1",
     "stiebel-isg.0.Einstellungen.BETRIEBSART.val1",
+    "stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR",
   ];
 
   const [socket, setSocket] = useState();
@@ -70,6 +86,17 @@ function PoolData() {
     }
   }
 
+  function setWpMode(mode) {
+    socket?.setState("stiebel-isg.0.Einstellungen.BETRIEBSART.val1", mode);
+  }
+
+  function setSollWasserTemp(temp) {
+    socket?.setState(
+      "stiebel-isg.0.Einstellungen.WARMWASSER.WARMWASSERTEMPERATUREN.val22",
+      temp
+    );
+  }
+
   return (
     <>
       <VStack>
@@ -78,14 +105,23 @@ function PoolData() {
             values["stiebel-isg.0.Einstellungen.BETRIEBSART.val1"]
           )}
         </Heading>
-        <Heading size={"xl"}>Modus</Heading>
+        <HStack gap={2}>
+          <Heading size={"xl"}>Modus</Heading>
+          <WpBetriebsartModal setWpMode={setWpMode} />
+        </HStack>
       </VStack>
       <HStack justifyContent={"space-around"}>
         <VStack>
           <Heading size={"4xl"}>
             {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.ISTTEMPERATUR"]}°
             <Text display={"inline"} fontSize={36}>
-              {values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR"]}°
+              {/* {values["stiebel-isg.0.Einstellungen.WARMWASSER.WARMWASSERTEMPERATUREN.val22"]}° */}
+              <SollWasserTempModal
+                sollTemp={
+                  values["stiebel-isg.0.Info.ANLAGE.WARMWASSER.SOLLTEMPERATUR"]
+                }
+                setSollWasserTemp={setSollWasserTemp}
+              />
             </Text>
           </Heading>
           <Heading size={"xl"}>Temp. Wasser</Heading>
@@ -180,3 +216,108 @@ function PoolData() {
 }
 
 export default PoolData;
+
+function WpBetriebsartModal({ setWpMode }) {
+  let buttonStylePvMode = {
+    // textTransform: "uppercase",
+    colorScheme: "gray",
+    w: "100%",
+    fontSize: "40px",
+    height: "80px",
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  function modalButton(mode) {
+    setWpMode(mode);
+    onClose();
+  }
+
+  return (
+    <>
+      <HardDrives onClick={onOpen} size={28} className=" text-gray-800 mt-2" />
+
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Betriebsart einstellen</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack gap={8} my={10}>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(0)}>
+                Notbetrieb
+              </Button>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(1)}>
+                Bereitschaftsbetrieb
+              </Button>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(2)}>
+                Programmbetrieb
+              </Button>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(3)}>
+                Komfortbetrieb
+              </Button>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(4)}>
+                Eco-Betrieb
+              </Button>
+              <Button {...buttonStylePvMode} onClick={() => modalButton(5)}>
+                Warmwasserbetrieb
+              </Button>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
+function SollWasserTempModal({ setSollWasserTemp, sollTemp }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [sollTempNew, setSollTempNew] = useState(sollTemp);
+
+  function handleSave() {
+    setSollWasserTemp(sollTempNew);
+    onClose();
+  }
+
+  useEffect(() => {
+    setSollTempNew(sollTemp);
+  }, [sollTemp]);
+
+  return (
+    <>
+      <span onClick={() => onOpen()}>{sollTemp}°</span>
+
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Warmwasser einstellen</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <NumberInput
+              size="lg"
+              defaultValue={sollTempNew}
+              min={0}
+              max={100}
+              onChange={(val) => setSollTempNew(val)}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+            <Button
+              onClick={() => handleSave()}
+              colorScheme="green"
+              size="lg"
+              w={"100%"}
+              my={6}
+            >
+              Speichern
+            </Button>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}

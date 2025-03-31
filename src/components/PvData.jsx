@@ -388,7 +388,7 @@ function PoolData() {
                   kW
                 </Heading>
               </VStack>
-              <Heading size={"md"}>Erzeugt Heute</Heading>
+              <Heading size={"md"}>Eingespeist Heute</Heading>
             </VStack>
             <VStack>
               <VStack>
@@ -409,7 +409,7 @@ function PoolData() {
                   kW
                 </Heading>
               </VStack>
-              <Heading size={"md"}>Erzeugt Woche</Heading>
+              <Heading size={"md"}>Eingespeist Woche</Heading>
             </VStack>
             <VStack>
               <VStack>
@@ -430,7 +430,7 @@ function PoolData() {
                   kW
                 </Heading>
               </VStack>
-              <Heading size={"md"}>Erzeugt Monat</Heading>
+              <Heading size={"md"}>Eingespeist Monat</Heading>
             </VStack>
             <VStack>
               <VStack>
@@ -451,7 +451,7 @@ function PoolData() {
                   kW
                 </Heading>
               </VStack>
-              <Heading size={"md"}>Erzeugt Jahr</Heading>
+              <Heading size={"md"}>Eingespeist Jahr</Heading>
             </VStack>
           </HStack>
         </VStack>
