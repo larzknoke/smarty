@@ -235,7 +235,7 @@ function WpBetriebsartModal({ setWpMode }) {
 
   return (
     <>
-      <HardDrives onClick={onOpen} size={28} className=" text-gray-800 mt-2" />
+      <HardDrives onClick={onOpen} size={28} className=" text-gray-800 mt-1" />
 
       <Modal isOpen={isOpen} onClose={onClose} size={"xl"} isCentered>
         <ModalOverlay />
